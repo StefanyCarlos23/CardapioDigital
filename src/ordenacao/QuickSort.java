@@ -13,9 +13,7 @@ public class QuickSort {
 
     private static void quicksort(Prato[] vetor, int inicio, int fim, String criterio) {
         if (inicio < fim) {
-
             int indicePivo = particionar(vetor, inicio, fim, criterio);
-
             quicksort(vetor, inicio, indicePivo - 1, criterio);
             quicksort(vetor, indicePivo + 1, fim, criterio);
         }
@@ -26,9 +24,8 @@ public class QuickSort {
         int i = inicio - 1;
 
         for (int j = inicio; j < fim; j++) {
-            if (comparar(vetor[j], pivo, criterio) <= 0) {
+            if (comparar(vetor[j], pivo, criterio) < 0) {
                 i++;
-
                 trocar(vetor, i, j);
             }
         }
