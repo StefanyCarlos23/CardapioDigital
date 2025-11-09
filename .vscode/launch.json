@@ -1,0 +1,16 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Executar JavaFX",
+            "request": "launch",
+            "mainClass": "main.MainApp",
+            "vmArgs": "--module-path \"C:/Users/stefa/openjfx-21.0.9_windows-x64_bin-sdk/javafx-sdk-21.0.9/lib\" --add-modules javafx.controls,javafx.fxml"
+        }
+    ]
+}

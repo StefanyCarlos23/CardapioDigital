@@ -20,6 +20,9 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        // Carrega dados iniciais
+        carregarDadosIniciais();
+        
         primaryStage.setTitle("Cardápio Digital - Sistema de Gerenciamento");
 
         BorderPane root = new BorderPane();
@@ -36,11 +39,33 @@ public class MainApp extends Application {
         root.setBottom(bottomPanel);
 
         VBox rightPanel = createRightPanel();
-        root.setRight(rightPanel);
+        ScrollPane scrollPane = new ScrollPane(rightPanel);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setStyle("-fx-background-color: transparent;");
+        root.setRight(scrollPane);
 
         Scene scene = new Scene(root, 1200, 700);
         primaryStage.setScene(scene);
         primaryStage.show();
+        
+        atualizarTabela();
+    }
+
+    private void carregarDadosIniciais() {
+        try {
+            tabela.inserir(new Prato("Pizza Margherita", 45.90, 25));
+            tabela.inserir(new Prato("Hambúrguer Artesanal", 32.50, 20));
+            tabela.inserir(new Prato("Salada Caesar", 28.00, 10));
+            tabela.inserir(new Prato("Lasanha Bolonhesa", 52.00, 35));
+            tabela.inserir(new Prato("Risoto de Cogumelos", 48.90, 30));
+            tabela.inserir(new Prato("Salmão Grelhado", 68.00, 25));
+            tabela.inserir(new Prato("Strogonoff de Frango", 38.50, 20));
+            tabela.inserir(new Prato("Feijoada Completa", 55.00, 40));
+            tabela.inserir(new Prato("Picanha na Chapa", 75.00, 30));
+            tabela.inserir(new Prato("Batata Frita", 18.00, 15));
+        } catch (Exception e) {
+            System.err.println("Erro ao carregar dados iniciais: " + e.getMessage());
+        }
     }
 
     private VBox createTopPanel() {
@@ -206,10 +231,13 @@ public class MainApp extends Application {
                            "-fx-font-weight: bold; -fx-padding: 10;");
         btnOrdenar.setOnAction(e -> ordenarPratos(comboCriterio.getValue(), comboAlgoritmo.getValue()));
 
-        Button btnLimpar = new Button("Limpar Filtros");
-        btnLimpar.setMaxWidth(Double.MAX_VALUE);
-        btnLimpar.setStyle("-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-padding: 8;");
-        btnLimpar.setOnAction(e -> atualizarTabela());
+        
+
+        Button btnRestaurar = new Button("🔄 Restaurar Ordem Original");
+        btnRestaurar.setMaxWidth(Double.MAX_VALUE);
+        btnRestaurar.setStyle("-fx-background-color: #34495e; -fx-text-fill: white; " +
+                      "-fx-font-weight: bold; -fx-padding: 10;");
+        btnRestaurar.setOnAction(e -> restaurarOrdemOriginal());
 
         vbox.getChildren().addAll(
             lblInsercao, txtNome, txtPreco, txtTempo, btnInserir,
@@ -218,7 +246,7 @@ public class MainApp extends Application {
             sep2,
             lblRemocao, txtRemover, btnRemover,
             sep3,
-            lblOrdenacao, comboCriterio, comboAlgoritmo, btnOrdenar, btnLimpar
+            lblOrdenacao, comboCriterio, comboAlgoritmo, btnOrdenar, btnRestaurar  // <-- AQUI
         );
 
         return vbox;
@@ -321,6 +349,16 @@ public class MainApp extends Application {
         statusLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #9b59b6;");
         
         tempoLabel.setText(String.format("⏱️ Tempo: %.4f ms | Total: %d pratos", tempoMs, vetor.length));
+    }
+
+    private void restaurarOrdemOriginal() {
+        Prato[] pratos = tabela.exportarParaVetor();
+        tabelaView.getItems().clear();
+        tabelaView.getItems().addAll(pratos);
+        
+        statusLabel.setText("✅ Ordem original restaurada - " + pratos.length + " pratos");
+        statusLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #34495e;");
+        tempoLabel.setText("📋 Ordenação: Ordem de Inserção");
     }
 
     private void atualizarTabela() {

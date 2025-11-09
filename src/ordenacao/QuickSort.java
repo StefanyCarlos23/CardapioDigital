@@ -16,6 +16,7 @@ public class QuickSort {
             int indicePivo = particionar(vetor, inicio, fim, criterio);
             quicksort(vetor, inicio, indicePivo - 1, criterio);
             quicksort(vetor, indicePivo + 1, fim, criterio);
+
         }
     }
 

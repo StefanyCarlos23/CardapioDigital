@@ -2,11 +2,15 @@ package estrutura;
 
 import model.Prato;
 import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TabelaHash {
     private LinkedList<Prato>[] tabela;
     private int tamanho;
     private int quantidadeElementos;
+    
+    private List<Prato> ordemInsercao;
 
     @SuppressWarnings("unchecked")
     public TabelaHash(int tamanho) {
@@ -15,6 +19,7 @@ public class TabelaHash {
         }
         this.tamanho = tamanho;
         this.quantidadeElementos = 0;
+        this.ordemInsercao = new ArrayList<>();
         tabela = new LinkedList[tamanho];
         
         for (int i = 0; i < tamanho; i++) {
@@ -37,6 +42,7 @@ public class TabelaHash {
         
         int indice = hash(prato.getNome());
         tabela[indice].add(prato);
+        ordemInsercao.add(prato);
         quantidadeElementos++;
     }
 
@@ -63,17 +69,14 @@ public class TabelaHash {
         boolean removido = tabela[indice].removeIf(p -> p.getNome().equalsIgnoreCase(nome.trim()));
         
         if (removido) {
+            ordemInsercao.removeIf(p -> p.getNome().equalsIgnoreCase(nome.trim()));
             quantidadeElementos--;
         }
         return removido;
     }
 
     public Prato[] exportarParaVetor() {
-        LinkedList<Prato> todos = new LinkedList<>();
-        for (LinkedList<Prato> lista : tabela) {
-            todos.addAll(lista);
-        }
-        return todos.toArray(new Prato[0]);
+        return ordemInsercao.toArray(new Prato[0]);
     }
 
     public int getQuantidadeElementos() {
