@@ -216,7 +216,7 @@ public class MainApp extends Application {
         lblOrdenacao.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #9b59b6;");
 
         ComboBox<String> comboCriterio = new ComboBox<>();
-        comboCriterio.getItems().addAll("Nome", "Preço", "Tempo");
+        comboCriterio.getItems().addAll("Nome", "preço", "Tempo");
         comboCriterio.setPromptText("Selecione o critério");
         comboCriterio.setMaxWidth(Double.MAX_VALUE);
 
@@ -230,8 +230,6 @@ public class MainApp extends Application {
         btnOrdenar.setStyle("-fx-background-color: #9b59b6; -fx-text-fill: white; " +
                            "-fx-font-weight: bold; -fx-padding: 10;");
         btnOrdenar.setOnAction(e -> ordenarPratos(comboCriterio.getValue(), comboAlgoritmo.getValue()));
-
-        
 
         Button btnRestaurar = new Button("🔄 Restaurar Ordem Original");
         btnRestaurar.setMaxWidth(Double.MAX_VALUE);
@@ -345,10 +343,10 @@ public class MainApp extends Application {
         tabelaView.getItems().clear();
         tabelaView.getItems().addAll(vetor);
 
-        statusLabel.setText(String.format("📊 Ordenado por %s usando %s", criterio, algoritmo));
+        statusLabel.setText(String.format("Ordenado por %s usando %s", criterio, algoritmo));
         statusLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #9b59b6;");
         
-        tempoLabel.setText(String.format("⏱️ Tempo: %.4f ms | Total: %d pratos", tempoMs, vetor.length));
+        tempoLabel.setText(String.format("Tempo: %.4f ms | Total: %d pratos", tempoMs, vetor.length));
     }
 
     private void restaurarOrdemOriginal() {
@@ -356,9 +354,9 @@ public class MainApp extends Application {
         tabelaView.getItems().clear();
         tabelaView.getItems().addAll(pratos);
         
-        statusLabel.setText("✅ Ordem original restaurada - " + pratos.length + " pratos");
+        statusLabel.setText("Ordem original restaurada - " + pratos.length + " pratos");
         statusLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #34495e;");
-        tempoLabel.setText("📋 Ordenação: Ordem de Inserção");
+        tempoLabel.setText("Ordenação: Ordem de Inserção");
     }
 
     private void atualizarTabela() {

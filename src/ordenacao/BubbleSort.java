@@ -13,6 +13,7 @@ public class BubbleSort {
         boolean houveTroca;
 
         for (int i = 0; i < n - 1; i++) {
+
             houveTroca = false;
             
             for (int j = 0; j < n - i - 1; j++) {
@@ -22,18 +23,20 @@ public class BubbleSort {
                     vetor[j + 1] = temp;
                     houveTroca = true;
                 }
+
             }
 
             if (!houveTroca) {
                 break;
             }
-        }
+        }   
+
     }
 
     private static int comparar(Prato a, Prato b, String criterio) {
         return switch (criterio.toLowerCase()) {
             case "nome" -> a.getNome().compareToIgnoreCase(b.getNome());
-            case "preco" -> Double.compare(a.getPreco(), b.getPreco());
+            case "preco", "preço" -> Double.compare(a.getPreco(), b.getPreco());
             case "tempo" -> Integer.compare(a.getTempoPreparo(), b.getTempoPreparo());
             default -> 0;
         };

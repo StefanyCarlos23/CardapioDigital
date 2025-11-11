@@ -8,6 +8,7 @@ public class InsertionSort {
         if (vetor == null || vetor.length == 0) {
             return;
         }
+
         
         for (int i = 1; i < vetor.length; i++) {
             Prato atual = vetor[i];
@@ -19,13 +20,15 @@ public class InsertionSort {
             }
 
             vetor[j + 1] = atual;
+
         }
+
     }
 
     private static int comparar(Prato a, Prato b, String criterio) {
         return switch (criterio.toLowerCase()) {
             case "nome" -> a.getNome().compareToIgnoreCase(b.getNome());
-            case "preco" -> Double.compare(a.getPreco(), b.getPreco());
+            case "preco", "preço" -> Double.compare(a.getPreco(), b.getPreco());
             case "tempo" -> Integer.compare(a.getTempoPreparo(), b.getTempoPreparo());
             default -> 0;
         };

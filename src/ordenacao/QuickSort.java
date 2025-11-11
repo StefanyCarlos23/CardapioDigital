@@ -6,9 +6,11 @@ public class QuickSort {
 
     public static void ordenar(Prato[] vetor, String criterio) {
         if (vetor == null || vetor.length == 0) {
-            return;
+            return;    
         }
+
         quicksort(vetor, 0, vetor.length - 1, criterio);
+
     }
 
     private static void quicksort(Prato[] vetor, int inicio, int fim, String criterio) {
@@ -32,6 +34,7 @@ public class QuickSort {
         }
 
         trocar(vetor, i + 1, fim);
+        
         return i + 1;
     }
 
@@ -44,7 +47,7 @@ public class QuickSort {
     private static int comparar(Prato a, Prato b, String criterio) {
         return switch (criterio.toLowerCase()) {
             case "nome" -> a.getNome().compareToIgnoreCase(b.getNome());
-            case "preco" -> Double.compare(a.getPreco(), b.getPreco());
+            case "preco", "preço" -> Double.compare(a.getPreco(), b.getPreco());
             case "tempo" -> Integer.compare(a.getTempoPreparo(), b.getTempoPreparo());
             default -> 0;
         };
